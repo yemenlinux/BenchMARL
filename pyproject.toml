@@ -6,5 +6,6 @@ build-backend = "setuptools.build_meta"
 
 [project.optional-dependencies]
 urbanmarl = [
-    "urbanmarl @ git+https://github.com/yemenlinux/vUrbanMARL.git",
+    "urbanmarl",
+    #"urbanmarl @ git+https://github.com/yemenlinux/vUrbanMARL.git",
 ]
