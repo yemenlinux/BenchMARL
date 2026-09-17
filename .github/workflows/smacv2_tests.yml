@@ -29,6 +29,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Install FFmpeg runtime libraries
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends ffmpeg
+        sudo ldconfig
     - name: Install dependencies
       run: |
        bash .github/unittest/install_dependencies_nightly.sh
