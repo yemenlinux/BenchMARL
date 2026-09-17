@@ -4,6 +4,8 @@
 #  LICENSE file in the root directory of this source tree.
 #
 
+import sys
+
 import pytest
 from benchmarl.algorithms import (
     algorithm_config_registry,
@@ -288,6 +290,13 @@ class TestUrbanMARL:
         )
         experiment.run()
 
+    @pytest.mark.skipif(
+        sys.platform == "darwin",
+        reason="torchcodec/FFmpeg runtime path issue on macOS runners",
+    )
+    @pytest.mark.skipif(
+        sys.platform == "win32", reason="Windows render needs FFmpeg shared DLLs"
+    )
     @pytest.mark.parametrize("algo_config", [MasacConfig])
     @pytest.mark.parametrize("task", list(UrbanEnvTask))
     def test_render(

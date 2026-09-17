@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.12"]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -35,9 +35,13 @@ jobs:
     - name: Install dependencies
       run: |
        bash .github/unittest/install_dependencies.sh
-    - name: Install meltingpot
-      run: |
-        bash .github/unittest/install_meltingpot.sh
+    
+    # Meltingpot needs Python 3.11 which relies heavily on 
+    # dmlab2d, which currently does not provide pre-built PyPI wheels for Python 3.12
+    # For now, use .github/workfow/meltingpot_tests.yml workflow instead of torchrl_stable_tests.yml workflow
+    # - name: Install meltingpot
+    #   run: |
+    #     bash .github/unittest/install_meltingpot.sh
     - name: Install vmas
       run: |
        bash .github/unittest/install_vmas.sh
@@ -49,4 +53,10 @@ jobs:
        bash .github/unittest/install_pettingzoo.sh
     - name: Tests
       run: |
-        xvfb-run -s "-screen 0 1024x768x24" pytest test/test_meltingpot.py test/test_pettingzoo.py test/test_algorithm.py test/test_models.py test/test_task.py test/test_vmas.py test/test_urbanmarl.py --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
+        xvfb-run -s "-screen 0 1024x768x24" pytest \
+        test/test_pettingzoo.py \
+        test/test_algorithm.py \
+        test/test_models.py \
+        test/test_task.py \
+        test/test_vmas.py \
+        test/test_urbanmarl.py --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
