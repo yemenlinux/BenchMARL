@@ -23,3 +23,4 @@ python -m pip install "pybind11[global]"
 
 pip install git+https://github.com/pytorch/tensordict.git
 pip install git+https://github.com/pytorch/rl.git
+pip install urbanmarl
