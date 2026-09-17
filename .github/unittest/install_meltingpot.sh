@@ -1,2 +1,2 @@
 
-pip install dm-meltingpot numpy
+pip install dm-meltingpot "numpy<2.0"

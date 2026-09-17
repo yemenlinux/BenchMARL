@@ -32,8 +32,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends ffmpeg
         sudo ldconfig
-        ffmpeg -version
-        ldconfig -p | grep libavutil
     - name: Install dependencies
       run: |
        bash .github/unittest/install_dependencies.sh
