@@ -84,15 +84,15 @@ class UrbanEnvClass(TaskClass):
     def log_info(self, batch: TensorDictBase) -> Dict[str, float]:
         if "info" not in batch.keys():
             return {}
-        if ("info", "urban_params") not in batch.keys(True, True):
+        if ("next", "info", "urban_params") not in batch.keys(True, True):
             return {}
         info = {}
         for i in range(batch.batch_size[0]):
             alpha, beta, gamma, E = batch.get(("next", "info", "urban_params"))[i, 0]
             urban_name = f"{alpha.item():.2f}_{int(beta.item())}_{gamma.item():.2f}_{E.item():.4f}"
             for key in batch.keys(True, True):
-                if isinstance(key, tuple) and key[0] == "info":
-                    if key[0] == "info" and key[-1] == "urban_params":
+                if isinstance(key, tuple) and key[0] == "next" and key[1] == "info":
+                    if key[-1] == "urban_params":
                         continue
                     #
                     metric = key[-1]
